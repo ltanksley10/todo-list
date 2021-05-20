@@ -1,6 +1,14 @@
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 document.getElementById('clearAll').addEventListener('click', handleClearAll);
+let list = document.getElementById('listItems');
+let input = document.querySelector('input');
+
+let saved = window.localStorage.getItem(input.value);
+
+if (saved) {
+	list.innerHTML = saved;
+}
 
 //Event handlers
 function handleSubmitForm(e) {
@@ -10,6 +18,7 @@ function handleSubmitForm(e) {
         addTodo(input.value);
     }
     input.value = '';
+    window.localStorage.setItem(input.value, list.innerHTML);
 }
 
 function addTodo(todo) {
@@ -51,4 +60,5 @@ function deleteTodo(e) {
 
 function handleClearAll(e) {
     document.querySelector('ul').innerHTML = '';
+    window.localStorage.clear();
 }
